@@ -5,3 +5,5 @@ Update :
 3. Register
 4. Menambahkan Users
 5. Middleware
+6. Detail User
+7. Update User
