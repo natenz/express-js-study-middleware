@@ -33,7 +33,4 @@ const findUserByUsername = (username, callback) => {
     });
 };
 
-module.exports = { findUserByUsername };
-
-  
-  module.exports = { addKaryawan, findUserByUsername };
+module.exports = { addKaryawan, findUserByUsername };

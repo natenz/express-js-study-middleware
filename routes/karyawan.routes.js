@@ -5,6 +5,7 @@ const KaryawanController = require('../controllers/karyawan');
 
 
 router.post('/register', KaryawanController.registerKaryawan);
+router.post('/nambahUser',authMiddleware, KaryawanController.addUser);
 
 
 module.exports = router;

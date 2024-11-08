@@ -1,9 +1,9 @@
 # Memaksa semua file teks menggunakan LF sebagai line ending
 * text=auto eol=lf
 
-# Aturan untuk jenis file tertentu
-*.js text eol=lf
-*.css text eol=lf
-*.html text eol=lf
+# Aturan untuk jenis file biner
 *.jpg binary
 *.png binary
+
+# Gunakan LF untuk semua file teks
+* text=auto eol=lf

@@ -3,7 +3,7 @@ const express = require('express');
 const connection = require('./controllers/database');
 const userRoutes = require('./routes/user.routes');
 const bodyParser = require('body-parser'); 
-
+const karyawanRoutes = require('./routes/karyawan.routes');
 // app.js
 const app = express();
 const port = process.env.PORT;
@@ -33,6 +33,7 @@ app.get('/', (req, res) => {
 });
 //create new API
 app.use('/getUser', userRoutes);
+app.use('/karyawan', karyawanRoutes);
 
 // Server start
 app.listen(port, () => {

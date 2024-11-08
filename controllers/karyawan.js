@@ -1,5 +1,6 @@
 const { addKaryawan} = require ('../model/karyawan.user');
 const bcrypt = require('bcrypt');
+const {addUsers} = require('../model/user.model');
 
 const registerKaryawan = (req, res) => {
   const { username, password } = req.body;
@@ -15,4 +16,16 @@ const registerKaryawan = (req, res) => {
   });
 };
 
-module.exports = { registerKaryawan };
+const addUser = (req, res) => {
+  const { nama_user, alamat_user } = req.body; 
+
+  addUsers(nama_user, alamat_user, (err, result) => {
+    if (err) {
+      console.error('Gagal menambahkan pengguna:', err.message);
+      return res.status(500).json({ message: 'Gagal menambahkan pengguna.' });
+    }
+    res.status(201).json({ message: 'Pengguna berhasil ditambahkan.', data: result });
+  });
+};
+
+module.exports = { registerKaryawan,addUser };
