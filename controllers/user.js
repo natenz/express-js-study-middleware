@@ -1,5 +1,6 @@
 // controllers/user.js
 const {findUserByUsername } = require ('../model/karyawan.user');
+const {addUsers,updateUser} = require('../model/user.model');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
@@ -65,5 +66,45 @@ const getAllUsers = (req, res) => {
   });
 };
 
+const detailUser = (req, res) => {
+  const userId = req.params.id; 
 
-module.exports = { login, getAllUsers };
+  let query = 'SELECT * FROM user WHERE id_user = ?'; 
+  connection.query(query, [userId], (err, results) => {
+    if (err) {
+      console.error('Error mengambil data pengguna:', err.message);
+      return res.status(500).json({ message: 'Terjadi kesalahan saat mengambil data pengguna.' });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ message: 'Pengguna tidak ditemukan.' });
+    }
+
+    const currentUser = req.user.username;
+    res.json({
+      message: 'Data pengguna berhasil diambil.',
+      currentUser, 
+      userDetails: results[0], 
+    });
+  });
+};
+
+const updateUserController = (req, res) => {
+  const userId = req.params.id;  
+  const { nama_user, alamat_user } = req.body;  
+  updateUser(userId, nama_user, alamat_user, (err, result) => {
+    if (err) {
+      console.error('Error memperbarui data pengguna:', err.message);
+      return res.status(500).json({ message: 'Terjadi kesalahan saat memperbarui data pengguna.' });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'Pengguna tidak ditemukan.' });
+    }
+    res.json({ message: 'Data pengguna berhasil diperbarui.' });
+  });
+};
+
+
+
+module.exports = { login, getAllUsers , detailUser, updateUserController};

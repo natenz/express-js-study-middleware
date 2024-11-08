@@ -10,4 +10,14 @@ const addUsers = (nama_user, alamat_user, callback ) => {
 });
 };
 
-module.exports = { addUsers };
+const updateUser = (id_user, nama_user, alamat_user,callback) => {
+    const query = 'UPDATE user SET nama_user = ?, alamat_user = ? WHERE id_user = ?';
+    connection.query(query, [nama_user,alamat_user,id_user], (err,result)=> {
+        if (err) {
+            return callback(err, null);
+          }
+          callback(null, result);
+    })
+}
+
+module.exports = { addUsers, updateUser };
