@@ -41,20 +41,29 @@ const login = (req, res) => {
 
 // Fungsi untuk mendapatkan semua data dari tabel user
 const getAllUsers = (req, res) => {
-  const query = 'SELECT * FROM user'; // Ganti 'user' dengan nama tabel yang sesuai
+  const search = req.query.search || '';
+  let query = 'SELECT * FROM user'; // Ganti 'user' dengan nama tabel yang sesuai
 
-  connection.query(query, (err, results) => {
+  if(search){
+    query += ' WHERE nama_user LIKE ? OR alamat_user LIKE ? ';
+  }
+  const searchValue = `%${search}%`;
+  connection.query(query, [searchValue,searchValue], (err, results) => {
     if (err) {
       console.error('Error mengambil data pengguna:', err.message);
       return res.status(500).json({ message: 'Terjadi kesalahan saat mengambil data.' });
     }
     // Mengirimkan hasil query ke client
-    res.json(results);
+    const currentUser = req.user.username; // Data username sudah ada dalam req.user setelah melalui authMiddleware
+
+    // Menyertakan informasi login ke response
+    res.json({
+      message: 'Data pengguna berhasil diambil.',
+      currentUser, // Menampilkan siapa yang sedang login
+      users: results // Menampilkan hasil query pengguna yang ditemukan
+    });
   });
 };
 
-const addUsers = (req,res) => {
-  const query = 'INSERT INTO user nama'
-}
 
 module.exports = { login, getAllUsers };

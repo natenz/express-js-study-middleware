@@ -1,6 +1,9 @@
 const { addKaryawan} = require ('../model/karyawan.user');
 const bcrypt = require('bcrypt');
 const {addUsers} = require('../model/user.model');
+const jwt = require('jsonwebtoken');
+
+
 
 const registerKaryawan = (req, res) => {
   const { username, password } = req.body;
@@ -27,5 +30,7 @@ const addUser = (req, res) => {
     res.status(201).json({ message: 'Pengguna berhasil ditambahkan.', data: result });
   });
 };
+
+
 
 module.exports = { registerKaryawan,addUser };
