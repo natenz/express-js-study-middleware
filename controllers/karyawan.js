@@ -1,5 +1,5 @@
 const { addKaryawan} = require ('../model/karyawan.user');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const {addUsers} = require('../model/user.model');
 const jwt = require('jsonwebtoken');
 

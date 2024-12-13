@@ -3,7 +3,7 @@ const {findUserByUsername } = require ('../model/karyawan.user');
 const {addUsers,updateUser} = require('../model/user.model');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 
 const connection = require('./database'); // Pastikan mengimpor koneksi ke database
